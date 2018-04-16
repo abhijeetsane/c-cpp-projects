@@ -1,0 +1,14 @@
+CC = /usr/bin/g++ 
+CFLAGS  =  -Wall -Werror -I /usr/local/include
+LDFLAGS = -L /usr/local/lib -lpistache -lpthread
+
+rule compile  
+    command = $CC  $CFLAGS -c $in -o $out
+
+rule link
+    command = $CC $in  $LDFLAGS  -o $out
+
+build hello.o: compile hello.cpp
+build hello: link hello.o 
+
+default hello
