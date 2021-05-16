@@ -1,0 +1,16 @@
+CC = /usr/bin/gcc-10
+INCLUDEFLAGS = -I/usr/lib/x86_64-linux-gnu/glib-2.0/include -I/usr/include/libgrss -I/usr/include/libsoup-2.4 -I/usr/include/libxml2 -I/usr/include/libmount -I/usr/include/blkid -I/usr/include/glib-2.0 -I/usr/lib/x86_64-linux-gnu/glib-2.0/include
+CFLAGS  =  -Werror -pthread -O2 -Wall 
+LDFLAGS =  -L/usr/lib -L /usr/local/lib -pthread  -lm -lgrss -lxml2 -lsoup-2.4 -lgio-2.0 -lgobject-2.0 -lglib-2.0
+
+
+rule compile  
+    command = $CC $INCLUDEFLAGS $CFLAGS -c $in -o $out
+
+rule link
+    command = $CC $in  $LDFLAGS  -o $out
+
+build cnews.o: compile cnews.c
+build cnews: link cnews.o
+
+default cnews
